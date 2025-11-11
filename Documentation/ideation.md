@@ -44,7 +44,7 @@ Prompt volume (e.g., 50 random prompts per run)
 Optional: seed (for reproducibility)
 
 Output:
-CSV with: prompt text, role, variables, success/fail, seed used
+JSON with: prompt text, role, variables, success/fail, seed used
 Exit code: 0 (passed threshold) or 1 (failed threshold)
 
 

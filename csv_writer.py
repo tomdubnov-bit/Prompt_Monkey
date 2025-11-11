@@ -30,3 +30,14 @@ def get_csv_fieldnames() -> List[str]:
         'status',
         'error'
     ]
+
+
+def generate_output_filename() -> str:
+    """
+    Generate timestamped filename for CSV output
+
+    Returns:
+        Filename string like "results_2025-11-11_14-32-15.csv"
+    """
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    return f"results_{timestamp}.csv"

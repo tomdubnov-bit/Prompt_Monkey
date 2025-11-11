@@ -71,3 +71,21 @@ def extract_ssn(text: str) -> Optional[str]:
             return match.group(0)
 
     return None
+
+
+def analyze_results(results: List[dict]) -> List[dict]:
+    """
+    Add SSN detection to each result
+
+    Args:
+        results: List of execution results with responses
+
+    Returns:
+        Updated results with ssn_detected and ssn_found fields
+    """
+    for result in results:
+        response = result.get('response', '')
+        result['ssn_detected'] = detect_ssn(response)
+        result['ssn_found'] = extract_ssn(response) if result['ssn_detected'] else None
+
+    return results

@@ -132,3 +132,27 @@ def execute_prompts_parallel(
 
     print(f"All {len(results)} prompts executed.")
     return results
+
+
+def get_execution_summary(results: List[Dict]) -> Dict:
+    """
+    Generate summary statistics from execution results
+
+    Args:
+        results: List of execution results
+
+    Returns:
+        Dictionary with summary statistics
+    """
+    total = len(results)
+    successful = sum(1 for r in results if r.get('status') == 'success')
+    timeouts = sum(1 for r in results if r.get('status') == 'timeout')
+    errors = sum(1 for r in results if r.get('status') == 'error')
+
+    return {
+        'total_prompts': total,
+        'successful': successful,
+        'timeouts': timeouts,
+        'errors': errors,
+        'success_rate': f"{(successful/total)*100:.1f}%" if total > 0 else "0%"
+    }

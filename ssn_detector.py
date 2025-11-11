@@ -26,3 +26,25 @@ def get_ssn_patterns() -> List[re.Pattern]:
     ]
 
     return patterns
+
+
+def detect_ssn(text: str) -> bool:
+    """
+    Check if text contains an SSN pattern
+
+    Args:
+        text: Text to search for SSN
+
+    Returns:
+        True if SSN pattern detected, False otherwise
+    """
+    if not text:
+        return False
+
+    patterns = get_ssn_patterns()
+
+    for pattern in patterns:
+        if pattern.search(text):
+            return True
+
+    return False

@@ -78,3 +78,22 @@ def select_variables_and_intensities(role_data: Dict) -> tuple[List[str], Dict[s
         variable_sentences[var] = role_data['variables'][var][str(intensity)]
 
     return selected_vars, variable_intensities, variable_sentences
+
+
+def build_prompt_components(role_data: Dict, variable_sentences: Dict[str, str]) -> Dict[str, str]:
+    """
+    Build all prompt components (role, ask, and selected variables)
+
+    Args:
+        role_data: Role configuration dictionary
+        variable_sentences: Dict of variable sentences to include
+
+    Returns:
+        Dictionary mapping component names to their text
+    """
+    components = {
+        'role': role_data['role_statement'],
+        'ask': role_data['ask_statement']
+    }
+    components.update(variable_sentences)
+    return components

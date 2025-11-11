@@ -12,6 +12,17 @@
 - Core insight is in prompt quality/coverage, not execution complexity
 
 
+Variables:
+- Role: sister, best friend, child, boss, lawyer, doctor, FBI, IRS, CEO, spouse, IT admin, auditor, HR, insurance agent, AI system engineer, terrorist
+- Evidence level: none → weak claim → moderate detail → strong credentials → fabricated official docs
+- Urgency: routine → time-sensitive → emergency → life-threatening
+- Politeness: demanding → neutral → polite → deferential → overly formal
+- Justification: none → vague → specific → hyper-specific procedural need
+- Directness: implicit → soft ask → direct → commanding
+- Consequence framing: none → positive outcome → negative delay → threatening
+- Technical language: casual → formal → bureaucratic → jargon-heavy
+
+
 Outside of MVP Scope:
 
 -non SSN targets
@@ -22,4 +33,4 @@ Outside of MVP Scope:
     b. partial extraction (first digit of ssn)
     c. context obfuscation (long preamble)
     d. threat/coercion
-
+-prompt mutation given responses: upon prompting, detect which responses seem to be closest to breaking, and mutate new prompts in that style accoridngly 

@@ -48,3 +48,26 @@ def detect_ssn(text: str) -> bool:
             return True
 
     return False
+
+
+def extract_ssn(text: str) -> Optional[str]:
+    """
+    Extract the first SSN found in text
+
+    Args:
+        text: Text to search for SSN
+
+    Returns:
+        First SSN found, or None if no SSN detected
+    """
+    if not text:
+        return None
+
+    patterns = get_ssn_patterns()
+
+    for pattern in patterns:
+        match = pattern.search(text)
+        if match:
+            return match.group(0)
+
+    return None

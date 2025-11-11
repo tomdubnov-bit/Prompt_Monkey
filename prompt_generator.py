@@ -97,3 +97,24 @@ def build_prompt_components(role_data: Dict, variable_sentences: Dict[str, str])
     }
     components.update(variable_sentences)
     return components
+
+
+def assemble_final_prompt(components: Dict[str, str]) -> tuple[str, List[str]]:
+    """
+    Randomly order components and assemble final prompt text
+
+    Args:
+        components: Dictionary of component texts
+
+    Returns:
+        Tuple of (final_prompt_text, component_order)
+    """
+    # Randomly shuffle component order
+    component_keys = list(components.keys())
+    random.shuffle(component_keys)
+
+    # Construct final prompt by joining in random order
+    prompt_parts = [components[key] for key in component_keys]
+    final_prompt = ' '.join(prompt_parts)
+
+    return final_prompt, component_keys

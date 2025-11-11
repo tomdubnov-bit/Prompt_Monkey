@@ -30,3 +30,51 @@ def load_roles(prompts_dir: str = "prompts") -> Dict[str, Dict]:
 
     print(f"Loaded {len(roles)} roles: {', '.join(roles.keys())}")
     return roles
+
+
+def select_role(roles: Dict[str, Dict]) -> tuple[str, Dict]:
+    """
+    Randomly select a role from available roles
+
+    Args:
+        roles: Dictionary of role data
+
+    Returns:
+        Tuple of (role_name, role_data)
+    """
+    role_name = random.choice(list(roles.keys()))
+    role_data = roles[role_name]
+    return role_name, role_data
+
+
+def select_variables_and_intensities(role_data: Dict) -> tuple[List[str], Dict[str, int], Dict[str, str]]:
+    """
+    Randomly select which variables to include and their intensity levels
+
+    Args:
+        role_data: Role configuration dictionary
+
+    Returns:
+        Tuple of (selected_vars, intensities, sentences)
+        - selected_vars: List of variable names included
+        - intensities: Dict mapping variable name to intensity level (1-10)
+        - sentences: Dict mapping variable name to actual sentence text
+    """
+    available_vars = ['urgency', 'politeness', 'evidence', 'justification', 'consequence']
+
+    # Randomly decide how many variables to include (1-5)
+    num_vars = random.randint(1, 5)
+
+    # Randomly select which variables
+    selected_vars = random.sample(available_vars, num_vars)
+
+    # Randomly select intensity for each variable (1-10)
+    variable_intensities = {}
+    variable_sentences = {}
+
+    for var in selected_vars:
+        intensity = random.randint(1, 10)
+        variable_intensities[var] = intensity
+        variable_sentences[var] = role_data['variables'][var][str(intensity)]
+
+    return selected_vars, variable_intensities, variable_sentences

@@ -118,3 +118,83 @@ def assemble_final_prompt(components: Dict[str, str]) -> tuple[str, List[str]]:
     final_prompt = ' '.join(prompt_parts)
 
     return final_prompt, component_keys
+
+
+def generate_prompt(roles: Dict[str, Dict], seed: int) -> Dict:
+    """
+    Main function to generate a single randomized attack prompt
+
+    Args:
+        roles: Dictionary of all loaded roles
+        seed: Random seed for this run
+
+    Returns:
+        Dictionary containing prompt text and all metadata
+    """
+    # Step 1: Select role
+    role_name, role_data = select_role(roles)
+
+    # Step 2: Select variables and intensities
+    selected_vars, intensities, sentences = select_variables_and_intensities(role_data)
+
+    # Step 3: Build components
+    components = build_prompt_components(role_data, sentences)
+
+    # Step 4: Assemble final prompt
+    final_prompt, component_order = assemble_final_prompt(components)
+
+    # Return prompt with full metadata
+    return {
+        'prompt': final_prompt,
+        'role': role_name,
+        'variables_included': selected_vars,
+        'variable_intensities': intensities,
+        'component_order': component_order,
+        'seed': seed
+    }
+
+
+def generate_batch(roles: Dict[str, Dict], count: int, seed: Optional[int] = None) -> List[Dict]:
+    """
+    Generate multiple randomized prompts
+
+    Args:
+        roles: Dictionary of all loaded roles
+        count: Number of prompts to generate
+        seed: Random seed (optional, will generate one if not provided)
+
+    Returns:
+        List of prompt dictionaries
+    """
+    # Set seed
+    if seed is None:
+        seed = random.randint(0, 999999)
+    random.seed(seed)
+
+    print(f"Generating {count} prompts with seed: {seed}")
+
+    prompts = []
+    for _ in range(count):
+        prompts.append(generate_prompt(roles, seed))
+
+    return prompts
+
+
+if __name__ == "__main__":
+    # Example usage
+    roles = load_roles()
+
+    print("\n" + "="*80)
+
+    # Generate 5 example prompts
+    prompts = generate_batch(roles, 5)
+
+    for i, prompt_data in enumerate(prompts, 1):
+        print(f"\nPrompt {i}:")
+        print(f"Role: {prompt_data['role']}")
+        print(f"Variables: {prompt_data['variables_included']}")
+        print(f"Intensities: {prompt_data['variable_intensities']}")
+        print(f"Order: {prompt_data['component_order']}")
+        print(f"\nGenerated Prompt:")
+        print(f'"{prompt_data["prompt"]}"')
+        print("="*80)

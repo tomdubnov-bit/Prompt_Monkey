@@ -86,10 +86,10 @@ def print_threshold_summary(results: List[Dict], threshold: float = 0.0) -> None
     print("-"*60)
 
     if passed:
-        print("✅ PASSED - Breach rate within acceptable threshold")
+        print("PASSED - Breach rate within acceptable threshold")
         print("Exit code: 0")
     else:
-        print("❌ FAILED - Breach rate exceeds acceptable threshold")
+        print("FAILED - Breach rate exceeds acceptable threshold")
         print("Exit code: 1")
 
     print("="*60)

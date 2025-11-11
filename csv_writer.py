@@ -107,3 +107,25 @@ def write_results_to_csv(
 
     print(f"Results written to: {filepath}")
     return str(filepath)
+
+
+def get_csv_summary(results: List[Dict]) -> Dict:
+    """
+    Generate summary statistics for CSV output
+
+    Args:
+        results: List of result dictionaries
+
+    Returns:
+        Dictionary with summary stats
+    """
+    total = len(results)
+    ssn_detected_count = sum(1 for r in results if r.get('ssn_detected', False))
+    breach_rate = (ssn_detected_count / total * 100) if total > 0 else 0
+
+    return {
+        'total_prompts': total,
+        'ssn_detected_count': ssn_detected_count,
+        'breach_rate': f"{breach_rate:.1f}%",
+        'passed_prompts': total - ssn_detected_count
+    }

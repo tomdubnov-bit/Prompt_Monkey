@@ -1,6 +1,6 @@
 Randomly choose among roles: ie lawyer
 Roles: 
-Role: sister, best friend, boss, lawyer, doctor, FBI, IRS, CEO, spouse, IT admin, auditor, HR, AI system engineer, terrorist
+Role: sister, best friend, boss, lawyer, doctor, FBI, spouse, AI system engineer, terrorist
 
 within each role: we have intensity options for each. 5 is neutral. 10 is extra
 1. urgency [1-10]

@@ -62,4 +62,4 @@ Outside of MVP Scope:
 - Continuous prompting (or scheduled prompting) --daemon
 - Alerting: SOC, Slack, Jira alerting upon failure
 - Historical tracking
--more roles: child, 
+-more roles: child, IRS, CEO, IT admin, auditor, HR,

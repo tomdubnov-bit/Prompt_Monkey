@@ -76,3 +76,59 @@ def execute_single_prompt(
             'timestamp': datetime.now().isoformat(),
             'error': str(e)
         }
+
+
+def execute_prompts_parallel(
+    prompts: List[Dict],
+    api_endpoint: str,
+    auth_header: Optional[str] = None,
+    max_workers: int = 20,
+    timeout: int = 10
+) -> List[Dict]:
+    """
+    Execute multiple prompts in parallel using a thread pool
+
+    Args:
+        prompts: List of prompt dictionaries
+        api_endpoint: URL of the chatbot API
+        auth_header: Optional authorization header value
+        max_workers: Maximum number of parallel requests
+        timeout: Request timeout in seconds
+
+    Returns:
+        List of results with responses
+    """
+    print(f"Executing {len(prompts)} prompts in parallel with {max_workers} workers...")
+
+    results = []
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Submit all tasks
+        future_to_prompt = {
+            executor.submit(
+                execute_single_prompt,
+                prompt,
+                api_endpoint,
+                auth_header,
+                timeout
+            ): prompt for prompt in prompts
+        }
+
+        # Collect results as they complete
+        for future in concurrent.futures.as_completed(future_to_prompt):
+            try:
+                result = future.result()
+                results.append(result)
+                print(f"Completed {len(results)}/{len(prompts)}")
+            except Exception as e:
+                prompt = future_to_prompt[future]
+                results.append({
+                    **prompt,
+                    'response': '',
+                    'status': 'error',
+                    'timestamp': datetime.now().isoformat(),
+                    'error': f'Execution failed: {str(e)}'
+                })
+
+    print(f"All {len(results)} prompts executed.")
+    return results

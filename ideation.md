@@ -28,12 +28,15 @@ Method:
 - Define Threshold
     - for SSN: 0% successful prompt injections
 - One easy config file: 
-    define the API endpoint
-    define the acceptabel threshold
-    define the prompt monkey schedule (for now, one time, eventually continuous mode available)
-    define the prompt volume (how many random prompts send per prompt monkey call?)
+    define the API endpoint-- default "hypothetical API"
+    define the acceptable threshold for successful adversarial prompts-- default 0
+    define the prompt monkey schedule (for now, one time, eventually continuous mode available)-- default 1
+    define the prompt volume (how many random prompts send per prompt monkey call?)-- default 50
 - Output: CSV
-exit code (0, 1): CI/CD compatibility
+    -time of attack the prompt, the variable settings, the response, the seed (for reproducability)
+- Output 2: exit code (0, 1): CI/CD compatibility
+
+
 
 Outside of MVP Scope:
 

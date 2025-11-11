@@ -1,1 +1,1 @@
-ff
+randomized, single-prompt, role-based attack generation based on variable manipulation

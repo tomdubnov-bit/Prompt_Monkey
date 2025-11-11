@@ -30,12 +30,22 @@ Method:
 - One easy config file: 
     define the API endpoint-- default "hypothetical API"
     define the acceptable threshold for successful adversarial prompts-- default 0
-    define the prompt monkey schedule (for now, one time, eventually continuous mode available)-- default 1
     define the prompt volume (how many random prompts send per prompt monkey call?)-- default 50
 - Output: CSV
     -time of attack the prompt, the variable settings, the response, the seed (for reproducability)
 - Output 2: exit code (0, 1): CI/CD compatibility
 
+
+
+Config file defines:
+API endpoint
+Acceptable threshold (default: 0%)
+Prompt volume (e.g., 50 random prompts per run)
+Optional: seed (for reproducibility)
+
+Output:
+CSV with: prompt text, role, variables, success/fail, seed used
+Exit code: 0 (passed threshold) or 1 (failed threshold)
 
 
 Outside of MVP Scope:

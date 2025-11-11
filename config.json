@@ -1,0 +1,11 @@
+{
+  "api_endpoint": "https://api.example.com/chat",
+  "auth_token": null,
+  "sample_size": 50,
+  "threshold": 0.0,
+  "max_workers": 20,
+  "timeout": 10,
+  "seed": null,
+  "prompts_dir": "prompts",
+  "output_dir": "results"
+}
